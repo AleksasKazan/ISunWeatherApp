@@ -13,4 +13,6 @@ Example: isun.exe -- cities Vilnius, Kaunas, Klaipėda
 
 Here's a screenshot of the Exchange tool in action:
 
-![image](https://github.com/AleksasKazan/ISunWeatherApp/assets/82649971/130f577a-1e57-4c33-bc32-ecaf7838e143)
+![image](https://github.com/AleksasKazan/ISunWeatherApp/assets/82649971/90f9ac5d-fbe3-4bc6-aed0-b7735e9fe8c5)
+
+
