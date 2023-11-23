@@ -1,12 +1,14 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Domain.Services;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Domain.Services
+namespace isun
 {
     public class WeatherBackgroundService(
         IWeatherService weatherService,
         ILogger<WeatherBackgroundService> logger,
-        IPrintService printService) : BackgroundService
+        IPrintService printService,
+        string[] args) : BackgroundService
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -14,13 +16,8 @@ namespace Domain.Services
             {
                 try
                 {
-                    var cities = await weatherService.GetCitiesAsync();
-
-                    var forecasts = await weatherService.GetForecastsAsync(cities);
-
+                    var forecasts = await weatherService.GetAndSaveForecastsAsync(args);
                     printService.PrintForecasts(forecasts);
-
-                    await weatherService.SaveForecastsAsync(forecasts);
                 }
                 catch (Exception ex)
                 {

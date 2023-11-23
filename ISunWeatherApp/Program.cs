@@ -1,5 +1,7 @@
 ﻿using Contracts.Models;
 using Domain;
+using Domain.Services;
+using isun;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,6 +37,11 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
                 });
                 services.AddSingleton(loggerFactory);
                 services.Configure<WeatherApiOptions>(hostContext.Configuration.GetSection("WeatherAPI"));
-                services.AddDomain(args);
+                services.AddHostedService(provider => new WeatherBackgroundService(
+                    provider.GetRequiredService<IWeatherService>(),
+                    provider.GetRequiredService<ILogger<WeatherBackgroundService>>(),
+                    provider.GetRequiredService<IPrintService>(),
+                    args));
+                services.AddDomain();
                 services.AddPersistence();
             });

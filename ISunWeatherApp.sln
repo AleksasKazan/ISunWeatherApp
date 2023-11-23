@@ -4,26 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "isun", "ISunWeatherApp\isun.csproj", "{251BCD3C-029D-4C99-882D-F4357BFFBB92}"
-	ProjectSection(ProjectDependencies) = postProject
-		{414C5DED-41A7-41AA-AA2E-8B123CB4D68C} = {414C5DED-41A7-41AA-AA2E-8B123CB4D68C}
-		{9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB} = {9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB}
-		{C1365C7D-1810-446D-811E-9A4B6E43F85C} = {C1365C7D-1810-446D-811E-9A4B6E43F85C}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{414C5DED-41A7-41AA-AA2E-8B123CB4D68C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB} = {9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C1365C7D-1810-446D-811E-9A4B6E43F85C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{414C5DED-41A7-41AA-AA2E-8B123CB4D68C} = {414C5DED-41A7-41AA-AA2E-8B123CB4D68C}
-		{9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB} = {9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{9715AC09-08A3-49E4-8CE9-F07C7DDBD9EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTests", "DomainTests\DomainTests.csproj", "{B62644A1-9DB5-4CBF-A749-24A39FB2A617}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTests", "DomainTests\DomainTests.csproj", "{B62644A1-9DB5-4CBF-A749-24A39FB2A617}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
