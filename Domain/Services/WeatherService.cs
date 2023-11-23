@@ -9,14 +9,31 @@ namespace Domain.Services
         IWeatherApiClient apiClient,
         IWeatherRepository weatherRepository,
         IInputService inputService,
-        ILogger<WeatherService> logger,
-        string[] args) : IWeatherService
+        ILogger<WeatherService> logger) : IWeatherService
     {
-        public async Task<IEnumerable<string>> GetCitiesAsync()
+        public async Task<IEnumerable<WeatherResponse>> GetAndSaveForecastsAsync(string[] args)
+        {
+            try
+            {
+                var cities = await GetCitiesAsync(args);
+                var forecasts = await GetForecastsAsync(cities);
+                await weatherRepository.OverrideForecastsAsync(forecasts);
+
+                return forecasts;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Failed to retrieve and save forecasts. {Message}", ex.Message);
+                throw;
+            }
+        }
+
+        private async Task<IEnumerable<string>> GetCitiesAsync(string[] args)
         {
             try
             {
                 var apiCities = await apiClient.GetApiCitiesAsync();
+
                 return inputService.GetCities(args, apiCities);
             }
             catch (Exception ex)
@@ -26,7 +43,7 @@ namespace Domain.Services
             }
         }
 
-        public async Task<IEnumerable<WeatherResponse>> GetForecastsAsync(IEnumerable<string> cities)
+        private async Task<IEnumerable<WeatherResponse>> GetForecastsAsync(IEnumerable<string> cities)
         {     
             var forecasts = new List<WeatherResponse>();
 
@@ -44,18 +61,6 @@ namespace Domain.Services
             }
 
             return forecasts;
-        }
-
-        public async Task SaveForecastsAsync(IEnumerable<WeatherResponse> forecasts)
-        {
-            try
-            {
-                await weatherRepository.OverrideForecastsAsync(forecasts);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Failed to save forecasts. {Message}", ex.Message);
-            }
         }
     }
 }

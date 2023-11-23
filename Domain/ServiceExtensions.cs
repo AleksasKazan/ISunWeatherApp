@@ -1,18 +1,16 @@
 ﻿using Domain.Clients;
 using Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Persistence.Repositories;
 
 namespace Domain
 {
     public static class ServiceExtensions
     {
-        public static IServiceCollection AddDomain(this IServiceCollection services, string[] args)
+        public static IServiceCollection AddDomain(this IServiceCollection services)
         {
             services
                     .AddClients()
-                    .AddServices(args);
+                    .AddServices();
 
             return services;
         }
@@ -26,22 +24,13 @@ namespace Domain
             return services;
         }
 
-        private static IServiceCollection AddServices(this IServiceCollection services, string[] args)
+        private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services
                 .AddMemoryCache()
-                .AddTransient<IWeatherService>(provider =>
-                    new WeatherService(
-                        provider.GetRequiredService<IWeatherApiClient>(),
-                        provider.GetRequiredService<IWeatherRepository>(),
-                        provider.GetRequiredService<IInputService>(),
-                        provider.GetRequiredService<ILogger<WeatherService>>(),
-                        args
-                    )
-                )
+                .AddTransient<IWeatherService, WeatherService>()
                 .AddTransient<IInputService, InputService>()
-                .AddTransient<IPrintService, PrintService>()
-                .AddHostedService<WeatherBackgroundService>();
+                .AddTransient<IPrintService, PrintService>();
 
             return services;
         }
